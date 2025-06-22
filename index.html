@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convite Aniversário - Tabitha e Hinata!</title>
+    <link rel="stylesheet" href="style.css"> <!-- Caminho corrigido -->
+    <style>
+        /* Estilos para o contêiner do vídeo vertical */
+        /* Aplicando ao ID #videoWrapper para especificidade e para não afetar outros .video-container */
+        #videoWrapper {
+            width: 100%; /* Faz o contêiner ocupar a largura disponível do seu elemento pai */
+            max-width: 270px;  /* Define uma largura máxima (ex: 270px para um aspecto 9:16 resultaria em 480px de altura) */
+            aspect-ratio: 9 / 16; /* Mantém a proporção vertical de 9:16. O navegador calculará a altura. */
+            /* A propriedade height não é mais necessária aqui, pois aspect-ratio cuidará disso. */
+            overflow: hidden; /* Garante que o vídeo não transborde */
+            background-color: #000; /* Fundo para o caso de 'object-fit: contain' ou carregamento */
+            margin: 20px auto; /* Opcional: centraliza o contêiner do vídeo e adiciona margem */
+            /* Estado inicial para a animação de "saltar" - display: none; é definido inline no HTML */
+            opacity: 0;
+            transform: scale(0.8) translateY(30px); /* Começa menor e um pouco abaixo */
+            transition: opacity 0.3s ease-out, transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            /* cubic-bezier para um efeito de "salto/mola" */
+        }
+
+        #videoWrapper.visible { /* Classe a ser adicionada via JavaScript para mostrar e animar */
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+
+        #videoAniversario {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Faz o vídeo preencher o contêiner, cortando se necessário.
+                                  Use 'contain' para ver o vídeo inteiro com possíveis barras. */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Imagem Central do Convite -->
+        <!-- Substitua 'caminho/para/sua/imagem-central.jpg' pelo caminho real da sua imagem -->
+        <img src="./tabithahinata.png" alt="Convite Dani e Gabi 15 Anos" class="convite-imagem-principal">
+
+        <div id="balloonGameSection">
+            <h2 style="color: #C62828; font-size: 2.1em; letter-spacing: 1px; text-shadow: 0 2px 12px #FFD700, 0 1px 0 #1565C0; margin-bottom: 10px;">Desafio da Mulher Maravilha!</h2>
+            <p style="font-size: 1.18em; font-weight: bold; color: #1565C0; background: linear-gradient(90deg, #3b3a3a38 0%, #fff 60%, #3b3a3a38 100%); border-radius: 12px; padding: 10px 12px; box-shadow: 0 2px 12px #FFD70044; margin-bottom: 8px;">Mostre sua coragem heroica: estoure <strong id="balloonsToPopTargetText" style="color:#C62828; text-shadow:0 1px 6px #FFD700; font-size:1.2em;"></strong> escudos mágicos para revelar os segredos da festa!<br>"Só os verdadeiros heróis conseguem completar esse desafio!"</p>
+            <p style="font-size:1.05em; color:#0B254B;">Progresso: <span id="balloonsPoppedCountText">0</span> de <span id="balloonsTargetCountText"></span> escudos.</p>
+            <p id="balloonGameFeedback" class="feedback"></p>
+        </div>
+        
+        <div id="detalhesFesta" class="hidden secao-conteudo"> <!-- Adicionada classe .secao-conteudo -->
+            <h2>Parabéns! Aqui estão os detalhes da festa:</h2>
+            <p>Oi, super-herói! Preparamos uma mensagem especial digna da Ilha de Themyscira. Clique no Simbolo da Mulher Maravilha para assistir!</p>
+            <!-- Seção do Presente/Vídeo -->
+            <div class="presente-video-wrapper">
+                <!-- Área do Presente Clicável -->
+                <div id="areaPresente">
+
+                    <!--
+                        IMPORTANTE: Substitua 'gift-image.png' pelo caminho real da sua imagem de presente.
+                        Você pode usar uma imagem local (ex: ./images/presente.png) ou um link de uma imagem online.
+                        Sugestão: procure por "ícone de presente PNG" ou "gift icon png" em sites de imagens.
+                    -->
+                    <img src="./presente.png" alt="Clique para ver o vídeo surpresa" id="imagemDoPresente">
+                </div>
+
+                <!-- Contêiner do Vídeo (originalmente .video-container), inicialmente oculto -->
+                <div id="videoWrapper" class="video-container" style="display: none;">
+                    <!-- Vídeo ajustado para preencher o contêiner vertical -->
+                    <video id="videoAniversario" controls>
+                        <source src="convite.mp4" type="video/mp4"> <!-- Caminho corrigido -->
+                        Seu navegador não suporta o elemento de vídeo.
+                    </video>
+                </div>
+            </div>
+            <!-- Informações do Evento -->
+            <div class="info-evento">
+                <h3>Data e Hora</h3>
+                <p><strong>Data:</strong> Sexta-feira, 04 de Julho</p>
+                <p><strong>Horário:</strong> Escolar </p>
+            </div>
+
+            <div class="info-evento">
+                <h3>Local da Festa</h3>
+                <p>Escola Crescer</p>
+                <p>R. Caramuru, 1336 - Trevo da Guarany, Pato Branco - PR</p>
+                <p>
+                    <a href="https://maps.app.goo.gl/b41acNfwnzTxdGzX6" target="_blank" title="Ver como chegar" class="map-link">
+                        <img src="https://api.iconify.design/material-symbols/map-outline.svg?color=%23FF69B4" alt="Ícone Mapa" class="map-icon"> Ver no mapa
+                    </a>
+                </p>
+            </div>
+
+            <div class="info-evento">
+                <h3>Confirme sua presença!</h3>
+                <p>Envie seu super recado pelo WhatsApp e junte-se a essa festa heroica!</p>
+                <a href="https://wa.me/5546999763636?text=Olá!%20Confirmo%20minha%20presença%20na%20Festa%20da%20Mulher%20Maravilha!%20Estou%20pronto%20para%20um%20dia%20de%20aventuras%20e%20diversão%20heroica!" target="_blank" class="whatsapp-button">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/150px-WhatsApp.svg.png" alt="WhatsApp Icon">
+                    Confirmar Presença via WhatsApp
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script> <!-- Caminho corrigido -->
+</body>
+</html>

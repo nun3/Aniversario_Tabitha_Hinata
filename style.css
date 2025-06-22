@@ -1,0 +1,418 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Pacifico&display=swap');
+
+:root {
+    --cor-primaria: #C62828; /* Vermelho Mulher Maravilha */
+    --cor-primaria-escura: #8B0000; /* Vermelho escuro */
+    --cor-secundaria: #1565C0; /* Azul Mulher Maravilha */
+    --cor-dourado: #FFD700; /* Dourado Mulher Maravilha */
+    --cor-texto-principal: #222222;
+    --cor-fundo-elemento-claro: #F3F6FB; /* Azul bem claro */
+    --cor-destaque-suave: #FFD700; /* Dourado para detalhes */
+
+    --font-principal: 'Montserrat', sans-serif;
+    --font-titulos: 'Pacifico', cursive;
+}
+
+body {
+    font-family: var(--font-principal);
+    background: #1565C0;
+    color: var(--cor-texto-principal);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+    /* Fundo azul com estrelas brancas delicadas, sem linhas */
+    background-image: url('data:image/svg+xml;utf8,<svg width="60" height="60" xmlns="http://www.w3.org/2000/svg"><text x="10" y="40" font-size="32" fill="white" opacity="0.18">★</text></svg>');
+    background-size: 70px 70px;
+    background-position: 0 0;
+}
+
+.container {
+    background: url('./cidade.png') center bottom/cover no-repeat, rgba(255,255,255,0.60);
+    background-blend-mode: lighten;
+    padding: 30px;
+    border-radius: 18px;
+    box-shadow: 0 8px 32px 0 rgba(198,40,40,0.18), 0 1.5px 0 0 var(--cor-dourado);
+    text-align: center;
+    max-width: 600px;
+    width: 100%;
+    position: relative;
+    z-index: 10;
+    border: 3px solid;
+    border-image: linear-gradient(120deg, var(--cor-dourado), var(--cor-secundaria), var(--cor-dourado)) 1;
+    opacity: 0.98;
+}
+
+/* Estilo para a imagem principal do convite */
+.convite-imagem-principal {
+    width: 100%;
+    max-width: 450px;
+    height: auto;
+    border-radius: 16px;
+    margin: 0 auto 25px auto;
+    box-shadow: 0 6px 32px 0 rgba(21,101,192,0.18), 0 0 0 6px rgba(255,215,0,0.45);
+    border: 4px solid;
+    border-image: linear-gradient(120deg, var(--cor-dourado), var(--cor-secundaria), var(--cor-dourado)) 1;
+    background: none;
+    opacity: 1 !important;
+}
+
+h1, h2, h3, p, span, label, .feedback {
+    color: #0B254B;
+    text-shadow: 0 2px 8px rgba(255,255,255,0.7), 0 1px 0 rgba(21,101,192,0.08);
+}
+
+h1 {
+    font-family: var(--font-titulos);
+    color: var(--cor-primaria);
+    font-size: 2.2em; /* Um pouco maior para a fonte Pacifico */
+    text-shadow: 1px 1px 2px rgba(255, 105, 180, 0.15); /* Sombra de texto sutil com nova cor */
+}
+
+h2 {
+    font-family: var(--font-titulos);
+    color: var(--cor-secundaria); /* Usando a cor secundária (teal) */
+}
+
+button {
+    padding: 10px 15px;
+    background-color: var(--cor-primaria);
+    color: white;
+    border: none;
+    border-radius: 8px; /* Bordas mais arredondadas */
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+button:hover {
+    background-color: var(--cor-primaria-escura);
+}
+
+button:focus {
+    outline: 3px solid rgba(255, 105, 180, 0.35); /* Outline com nova cor primária */
+    outline-offset: 2px;
+}
+
+button:active {
+    transform: translateY(1px);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.hidden {
+    display: none;
+}
+
+/* Estilo base para seções de conteúdo que podem ter transições */
+.secao-conteudo {
+    opacity: 1;
+    max-height: 2000px; /* Um valor alto o suficiente para o conteúdo */
+    overflow: hidden;
+    transition: opacity 0.5s ease-in-out, max-height 0.5s ease-in-out, margin-top 0.5s ease-in-out, padding-top 0.5s ease-in-out, transform 0.5s ease-in-out;
+    transform: translateY(0);
+}
+
+.secao-conteudo.hidden {
+    opacity: 0;
+    max-height: 0;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    transform: translateY(-20px); /* Efeito sutil de deslizar para cima ao esconder */
+}
+
+#detalhesFesta {
+    margin-top: 30px;
+    border-top: 2px dashed var(--cor-primaria); /* Linha tracejada com a cor primária */
+    padding-top: 20px;
+} /* Adicionar a classe .secao-conteudo a este elemento no HTML se desejar transição */
+
+.video-container {
+    margin-bottom: 20px;
+    position: relative;
+    padding-bottom: 56.25%; /* Proporção 16:9 para o vídeo responsivo */
+    height: 0;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.video-container iframe,
+.video-container video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.endereco {
+    background-color: var(--cor-fundo-elemento-claro); /* Fundo rosa bem clarinho */
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 20px;
+    text-align: left;
+}
+
+.endereco h3 {
+    color: var(--cor-primaria-escura); /* Tom mais escuro da cor primária */
+    margin-top: 0;
+}
+
+/* Estilos para blocos de informação do evento (Data, Hora, Local) */
+.info-evento {
+    background-color: var(--cor-fundo-elemento-claro);
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 20px;
+    text-align: left;
+    border-left: 6px solid var(--cor-dourado);
+    box-shadow: 0 2px 12px 0 rgba(21,101,192,0.12);
+}
+.info-evento h3 {
+    color: var(--cor-primaria-escura);
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.2em;
+}
+
+.feedback {
+    margin-top: 10px;
+    font-weight: bold;
+    min-height: 1.2em; /* Para evitar que o layout pule */
+}
+
+.feedback.success {
+    color: green;
+}
+
+.feedback.error {
+    color: red;
+}
+
+/* Responsividade básica */
+@media (max-width: 480px) {
+    .container {
+        padding: 20px;
+    }
+    h1 {
+        font-size: 1.5em;
+    }
+    button {
+        width: 100%;
+        padding: 12px 15px; /* Ajuste de padding para botões full-width */
+    }
+}
+
+/* Estilos dos Balões */
+.balloon {
+    width: 70px;
+    height: 90px;
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; /* Forma de balão */
+    position: fixed; /* Flutua em relação à janela */
+    bottom: -100px;  /* Começa abaixo da tela */
+    z-index: 0;      /* Padrão para balões decorativos, o jogo usará um z-index maior */
+    opacity: 0.7;
+    animation-name: floatUp;
+    animation-timing-function: linear;
+    /* A duração e o delay serão definidos pelo JavaScript */
+}
+
+/* Efeito do "nó" do balão */
+.balloon::after {
+    content: "";
+    position: absolute;
+    width: 2px;
+    height: 10px;
+    background-color: rgba(0, 0, 0, 0.2);
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 0 0 1px 1px;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0);
+        opacity: 0.7;
+    }
+    90% {
+        opacity: 0.5;
+    }
+    100% {
+        transform: translateY(-120vh); /* Sobe bem acima da tela */
+        opacity: 0;
+    }
+}
+
+/* Estilos para os Balões do Jogo */
+.game-balloon {
+    display: none !important;
+}
+
+/* Estilos dos Fogos de Artifício */
+.firework-particle {
+    position: fixed;
+    background-color: white; /* Cor base, será alterada por JS */
+    border-radius: 50%;
+    opacity: 0.9; /* Levemente translúcido para um efeito mais suave */
+    z-index: 1; /* Acima dos balões, mas abaixo do container */
+    pointer-events: none; /* Para não interferir com cliques */
+}
+
+/* Animação da partícula subindo (o "foguete") */
+@keyframes rise {
+    to {
+        transform: translateY(-100vh);
+        opacity: 0;
+    }
+}
+
+/* Animação da explosão da partícula */
+@keyframes explode {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(3); /* Aumenta o tamanho da partícula ao explodir/sumir */
+        opacity: 0;
+    }
+}
+
+.whatsapp-button {
+    display: inline-flex; /* Para alinhar o ícone e o texto */
+    align-items: center; /* Alinha verticalmente o ícone e o texto */
+    justify-content: center; /* Centraliza o conteúdo se o botão tiver largura fixa */
+    background-color: #25D366; /* Cor oficial do WhatsApp */
+    color: white !important; /* Garante que o texto seja branco */
+    padding: 10px 20px;
+    margin-top: 25px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.whatsapp-button img {
+    width: 20px;
+    height: 20px;
+    vertical-align: middle; /* Mantém alinhamento com o texto */
+    margin-right: 8px; /* Espaçamento entre ícone e texto */
+}
+
+.whatsapp-button:hover {
+    background-color: #1DAE54; /* Um tom mais escuro do verde do WhatsApp */
+    color: white !important;
+}
+
+/* Estilos para o link do mapa com ícone */
+.map-link {
+    display: inline-flex; /* Alinha o ícone e o texto na mesma linha */
+    align-items: center;  /* Centraliza verticalmente o ícone e o texto */
+    text-decoration: none; /* Remove o sublinhado padrão do link */
+    color: var(--cor-primaria); /* Usa a cor primária para o link */
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.map-link:hover {
+    color: var(--cor-primaria-escura); /* Escurece um pouco no hover */
+    text-decoration: underline; /* Adiciona sublinhado no hover para feedback */
+}
+
+.map-icon {
+    width: 20px;  /* Tamanho do ícone */
+    height: 20px; /* Tamanho do ícone */
+    margin-right: 6px; /* Espaçamento entre o ícone e o texto */
+}
+
+/* Estilos para a seção do presente/vídeo */
+.presente-video-wrapper {
+    text-align: center;
+    margin-top: 30px; /* Adiciona um espaço acima da seção do presente */
+    margin-bottom: 25px;
+    padding: 20px;
+    background-color: var(--cor-fundo-elemento-claro); /* Fundo suave para destacar a seção */
+    /* Fundo com imagem de fundo */
+    background-image: url('./cidade.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 8px;
+    border-top: 3px solid #13140169;
+    border-bottom: 3px solid #13140169;
+}
+
+#areaPresente p {
+    font-family: var(--font-principal);
+    font-size: 1.15em; /* Tamanho um pouco maior para legibilidade e destaque */
+    color: var(--cor-secundaria); /* Usando a cor secundária para o texto */
+    margin-bottom: 20px;
+    line-height: 1.6;
+    font-weight: 500; /* Um pouco mais de peso na fonte */
+}
+
+#imagemDoPresente {
+    cursor: pointer;
+    max-width: 180px; /* Levemente menor para um visual mais delicado */
+    display: block;
+    margin: 0 auto 15px auto; /* Centraliza e adiciona margem inferior */
+
+    border-radius: 12px; /* Bordas um pouco mais arredondadas */
+    padding: 8px; /* Padding interno */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#imagemDoPresente:hover {
+    transform: scale(1.07); /* Efeito de zoom sutil no hover */
+    box-shadow: 0 6px 15px rgba(255, 105, 180, 0.3); /* Sombra mais pronunciada com a cor primária */
+}
+
+/* Estilos para os Escudos do Jogo */
+.game-shield {
+    width: 90px;
+    height: 90px;
+    position: fixed;
+    bottom: -100px;
+    opacity: 0.98;
+    animation-name: floatUp;
+    animation-timing-function: linear;
+    cursor: pointer;
+    z-index: 100;
+    filter: drop-shadow(0 0 16px var(--cor-dourado)) drop-shadow(0 0 8px var(--cor-primaria));
+    transition: transform 0.15s;
+    border-radius: 50%;
+    background: rgb(248, 246, 246);
+    object-fit: contain;
+    border: 2.5px solid var(--cor-dourado);
+}
+.game-shield:active {
+    transform: scale(0.92);
+}
+
+/* Certifique-se de que há uma nova linha no final do arquivo para boas práticas */
+
+#balloonGameSection {
+    /* Removido o background da cidade, agora só o fundo do .container aparece */
+    border-radius: 18px;
+    border: 3px solid;
+    border-image: linear-gradient(120deg, var(--cor-dourado), var(--cor-secundaria), var(--cor-dourado)) 1;
+    box-shadow: 0 8px 32px 0 rgba(198,40,40,0.13), 0 1.5px 0 0 var(--cor-dourado);
+    opacity: 0.98;
+    padding: 24px 18px 120px 18px;
+    margin-bottom: 24px;
+    position: relative;
+    z-index: 11;
+}
+
+#balloonGameSection h2, #balloonGameSection p, #balloonGameSection span, #balloonGameSection label {
+    color: #0B254B;
+    text-shadow: 0 2px 8px rgba(255,255,255,0.7), 0 1px 0 rgba(21,101,192,0.08);
+}
