@@ -40,18 +40,36 @@
     <div class="container">
         <!-- Imagem Central do Convite -->
         <!-- Substitua 'caminho/para/sua/imagem-central.jpg' pelo caminho real da sua imagem -->
-        <img src="./tabithahinata.png" alt="Convite Dani e Gabi 15 Anos" class="convite-imagem-principal">
+        <img src="./tabithahinata.png" alt="Convite" class="convite-imagem-principal">
 
         <div id="balloonGameSection">
             <h2 style="color: #C62828; font-size: 2.1em; letter-spacing: 1px; text-shadow: 0 2px 12px #FFD700, 0 1px 0 #1565C0; margin-bottom: 10px;">Desafio!</h2>
-            <p style="font-size: 1.18em; font-weight: bold; color: #1565C0; background: linear-gradient(90deg, #3b3a3a38 0%, #fff 60%, #3b3a3a38 100%); border-radius: 12px; padding: 10px 12px; box-shadow: 0 2px 12px #FFD70044; margin-bottom: 8px;">Mostre sua coragem heroica: estoure <strong id="balloonsToPopTargetText" style="color:#C62828; text-shadow:0 1px 6px #FFD700; font-size:1.2em;"></strong> escudos mágicos para revelar os segredos da festa!<br></p>
-            <p style="font-size:1.05em; color:#0B254B;">Progresso: <span id="balloonsPoppedCountText">0</span> de <span id="balloonsTargetCountText"></span> escudos.</p>
-            <p id="balloonGameFeedback" class="feedback"></p>
+            <p id="instructionText" style="font-size: 1.18em; font-weight: bold; color: #1565C0; background: linear-gradient(90deg, #3b3a3a38 0%, #fff 60%, #3b3a3a38 100%); border-radius: 12px; padding: 10px 12px; box-shadow: 0 2px 12px #FFD70044; margin-bottom: 8px;">
+                <span class="desktop-only">Mostre sua coragem heroica: estoure <strong id="balloonsToPopTargetText" style="color:#C62828; text-shadow:0 1px 6px #FFD700; font-size:1.2em;"></strong> escudos mágicos para revelar os segredos da festa!</span>
+                <span class="mobile-only">Mostre sua coragem heroica e estoure os escudos mágicos para revelar os segredos da festa!</span>
+            </p>
+            
+            <!-- Botão para iniciar o jogo -->
+            <div id="startGameButton" style="text-align: center; margin: 20px 0;">
+                <button id="iniciarJogoBtn">
+                    🛡️ INICIAR DESAFIO DOS ESCUDOS! ⚡
+                </button>
+            </div>
+            
+            <!-- Área do jogo (inicialmente oculta) -->
+            <div id="gameArea" style="display: none;">
+                <p id="progressText">
+                    <span class="desktop-only">Progresso: </span>
+                    <span id="balloonsPoppedCountText">0</span> de <span id="balloonsTargetCountText"></span> escudos.
+                </p>
+                <p id="balloonGameFeedback" class="feedback"></p>
+            </div>
         </div>
         
         <div id="detalhesFesta" class="hidden secao-conteudo"> <!-- Adicionada classe .secao-conteudo -->
             <h2>Parabéns! Aqui estão os detalhes da festa:</h2>
-            <p>Oi, super-herói! Preparamos uma mensagem especial. Clique no Simbolo da Mulher Maravilha para assistir!</p>
+            <p style="font-size: 1.2em; font-weight: bold; color: #C62828; text-shadow: 0 2px 8px #FFD700; background: linear-gradient(90deg, #FFD70022 0%, #fff 50%, #FFD70022 100%); padding: 15px; border-radius: 15px; border: 2px solid #FFD700; margin: 20px 0; text-align: center;">🌟 <strong>SURPRESA ESPECIAL!</strong> 🌟<br>
+            <span style="font-size: 1.1em; color: #1565C0;">Clique no <strong style="color: #C62828; text-shadow: 0 1px 4px #FFD700;">SÍMBOLO DA MULHER MARAVILHA</strong> abaixo para desbloquear uma mensagem incrível! ⚡</span></p>
             <!-- Seção do Presente/Vídeo -->
             <div class="presente-video-wrapper">
                 <!-- Área do Presente Clicável -->

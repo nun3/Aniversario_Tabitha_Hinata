@@ -198,11 +198,15 @@ button:active {
         padding: 20px;
     }
     h1 {
-        font-size: 1.5em;
+        font-size: 1.8em; /* Um pouco menor para telas pequenas */
     }
-    button {
-        width: 100%;
-        padding: 12px 15px; /* Ajuste de padding para botões full-width */
+
+    .desktop-only {
+        display: none;
+    }
+
+    .mobile-only {
+        display: inline; /* ou 'block' ou 'inline-block' dependendo do elemento */
     }
 }
 
@@ -415,4 +419,43 @@ button:active {
 #balloonGameSection h2, #balloonGameSection p, #balloonGameSection span, #balloonGameSection label {
     color: #0B254B;
     text-shadow: 0 2px 8px rgba(255,255,255,0.7), 0 1px 0 rgba(21,101,192,0.08);
+}
+
+.mobile-only {
+    display: none;
+}
+.desktop-only {
+    display: inline; /* ou 'block' ou 'inline-block' dependendo do elemento */
+}
+
+#iniciarJogoBtn {
+    background: linear-gradient(45deg, var(--cor-primaria), #D32F2F);
+    color: white;
+    border: 3px solid var(--cor-dourado);
+    border-radius: 25px;
+    padding: 15px 30px;
+    font-size: 1.3em;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(198, 40, 40, 0.4);
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+#iniciarJogoBtn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(198, 40, 40, 0.6);
+}
+
+#progressText {
+    background: rgba(255, 255, 255, 0.7);
+    border: 2px solid var(--cor-dourado);
+    border-radius: 12px;
+    padding: 10px 15px;
+    margin-top: 20px;
+    font-weight: bold;
+    color: var(--cor-secundaria);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }

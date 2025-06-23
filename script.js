@@ -8,6 +8,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const videoWrapper = document.getElementById('videoWrapper'); // Este é o .video-container que agora tem um ID
 
     const balloonGameSection = document.getElementById('balloonGameSection');
+    const startGameButton = document.getElementById('startGameButton');
+    const gameArea = document.getElementById('gameArea');
+    const iniciarJogoBtn = document.getElementById('iniciarJogoBtn');
     const balloonsToPopTargetTextEl = document.getElementById('balloonsToPopTargetText');
     const balloonsPoppedCountTextEl = document.getElementById('balloonsPoppedCountText');
     const balloonsTargetCountTextEl = document.getElementById('balloonsTargetCountText');
@@ -24,6 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let balloonsPopped = 0;
     let mainObjectiveAchieved = false; // Nova flag para controlar a revelação principal
     let balloonSpawnTimer;
+    let gameStarted = false; // Nova flag para controlar se o jogo foi iniciado
 
     const SURPRISE_MUSIC_SRC = './surpresa.mp3';
     let surpriseMusic = new Audio(SURPRISE_MUSIC_SRC);
@@ -37,11 +41,23 @@ document.addEventListener('DOMContentLoaded', function() {
             balloonsTargetCountTextEl.textContent = TOTAL_BALLOONS_TO_POP;
             updatePoppedCountDisplay();
             mainObjectiveAchieved = false; // Reseta a flag ao iniciar/reiniciar
+            gameStarted = true;
+            
+            // Esconde o botão e mostra a área do jogo
+            if (startGameButton) startGameButton.style.display = 'none';
+            if (gameArea) gameArea.style.display = 'block';
+            
+            // Inicia a geração de escudos
             balloonSpawnTimer = setInterval(spawnBalloon, BALLOON_SPAWN_INTERVAL);
         }
     }
 
     function spawnBalloon() {
+        // Só gera escudos se o jogo estiver ativo
+        if (!gameStarted || mainObjectiveAchieved) {
+            return;
+        }
+        
         const activeShields = document.querySelectorAll('.game-shield').length;
         if (activeShields >= MAX_ACTIVE_BALLOONS) {
             return;
@@ -62,6 +78,11 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function handleBalloonPop(event) {
+        // Só processa cliques se o jogo estiver ativo
+        if (!gameStarted || mainObjectiveAchieved) {
+            return;
+        }
+        
         const poppedShield = event.target;
         poppedShield.remove();
         shieldPopAudio.currentTime = 0;
@@ -158,8 +179,10 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!videoAniversario) console.warn('- videoAniversario não encontrado');
     }
 
-    // --- Inicia o jogo de balões (se a seção existir) ---
-    if (balloonGameSection) { // Garante que a seção do jogo exista antes de iniciar
-        initBalloonGame();
+    // --- Evento do botão para iniciar o jogo ---
+    if (iniciarJogoBtn) {
+        iniciarJogoBtn.addEventListener('click', function() {
+            initBalloonGame();
+        });
     }
 });
