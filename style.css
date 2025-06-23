@@ -404,16 +404,17 @@ button:active {
 /* Certifique-se de que há uma nova linha no final do arquivo para boas práticas */
 
 #balloonGameSection {
-    /* Removido o background da cidade, agora só o fundo do .container aparece */
-    border-radius: 18px;
-    border: 3px solid;
-    border-image: linear-gradient(120deg, var(--cor-dourado), var(--cor-secundaria), var(--cor-dourado)) 1;
-    box-shadow: 0 8px 32px 0 rgba(198,40,40,0.13), 0 1.5px 0 0 var(--cor-dourado);
-    opacity: 0.98;
-    padding: 24px 18px 120px 18px;
-    margin-bottom: 24px;
-    position: relative;
-    z-index: 11;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 260px;
+    height: 38vw;
+    max-height: 400px;
+    padding: 32px 0;
+    background: none;
+    box-shadow: none;
+    border: none;
 }
 
 #balloonGameSection h2, #balloonGameSection p, #balloonGameSection span, #balloonGameSection label {
@@ -458,4 +459,79 @@ button:active {
     font-weight: bold;
     color: var(--cor-secundaria);
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+#areaPresente {
+    position: relative;
+    display: inline-block;
+}
+
+#playIcon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 38%;
+    max-width: 90px;
+    min-width: 40px;
+    pointer-events: none;
+    opacity: 0.92;
+    transition: opacity 0.2s;
+}
+
+#areaPresente[style*='display: none'] #playIcon {
+    opacity: 0;
+}
+
+#imgDesafio {
+    animation: pulseDesafio 1.2s infinite;
+    max-width: 90%;
+    width: 320px;
+    min-width: 180px;
+    height: auto;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+#imgDesafio:hover {
+    transform: scale(1.06);
+}
+
+@keyframes pulseDesafio {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(198,40,40,0.18); }
+    60% { transform: scale(1.08); box-shadow: 0 0 24px 8px rgba(255,215,0,0.18); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(198,40,40,0.18); }
+}
+
+#balloonGameSection.fade-out {
+    animation: fadeOutDesafio 1.2s forwards;
+    position: relative;
+    z-index: 50;
+}
+
+#balloonGameSection.fade-out::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 60%;
+    transform: translate(-50%, -50%);
+    width: 340px;
+    height: 180px;
+    background: radial-gradient(ellipse at center, rgba(255,255,255,0.95) 0%, rgba(200,200,200,0.5) 60%, rgba(255,255,255,0) 100%);
+    filter: blur(18px);
+    opacity: 0.92;
+    pointer-events: none;
+    z-index: 1000;
+    animation: fumaçaDesafio 1.2s forwards;
+}
+
+@keyframes fadeOutDesafio {
+    0% { opacity: 1; transform: scale(1); }
+    60% { opacity: 0.8; transform: scale(1.04); }
+    100% { opacity: 0; transform: scale(1.12); }
+}
+
+@keyframes fumaçaDesafio {
+    0% { opacity: 0.92; transform: translate(-50%, -50%) scale(1); }
+    60% { opacity: 1; transform: translate(-50%, -70%) scale(1.18); }
+    100% { opacity: 0; transform: translate(-50%, -120%) scale(1.35); }
 }

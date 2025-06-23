@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const imagemDoPresente = document.getElementById('imagemDoPresente');
     const areaPresente = document.getElementById('areaPresente');
     const videoWrapper = document.getElementById('videoWrapper'); // Este é o .video-container que agora tem um ID
+    const playIcon = document.getElementById('playIcon');
 
     const balloonGameSection = document.getElementById('balloonGameSection');
     const startGameButton = document.getElementById('startGameButton');
@@ -15,6 +16,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const balloonsPoppedCountTextEl = document.getElementById('balloonsPoppedCountText');
     const balloonsTargetCountTextEl = document.getElementById('balloonsTargetCountText');
     const balloonGameFeedbackEl = document.getElementById('balloonGameFeedback');
+
+    const imgDesafio = document.getElementById('imgDesafio');
 
     // --- Configurações do Jogo de Balões (se aplicável) ---
     const TOTAL_BALLOONS_TO_POP = 10; // Quantos balões o usuário precisa estourar
@@ -35,21 +38,31 @@ document.addEventListener('DOMContentLoaded', function() {
     let surpriseMusicPlayed = false;
 
     // --- Inicialização do Jogo de Balões ---
-    if (balloonGameSection && balloonsToPopTargetTextEl && balloonsTargetCountTextEl && balloonsPoppedCountTextEl) {
+    if (balloonGameSection && balloonsTargetCountTextEl && balloonsPoppedCountTextEl) {
         function initBalloonGame() {
-            balloonsToPopTargetTextEl.textContent = TOTAL_BALLOONS_TO_POP;
-            balloonsTargetCountTextEl.textContent = TOTAL_BALLOONS_TO_POP;
-            updatePoppedCountDisplay();
-            mainObjectiveAchieved = false; // Reseta a flag ao iniciar/reiniciar
+            // Resetar variáveis
+            balloonsPopped = 0;
+            mainObjectiveAchieved = false;
             gameStarted = true;
-            
-            // Esconde o botão e mostra a área do jogo
+
+            // Remover escudos antigos
+            document.querySelectorAll('.game-shield').forEach(e => e.remove());
+
+            // Atualizar textos
+            if (balloonsTargetCountTextEl) balloonsTargetCountTextEl.textContent = TOTAL_BALLOONS_TO_POP;
+            updatePoppedCountDisplay();
+            if (balloonGameFeedbackEl) balloonGameFeedbackEl.textContent = '';
+
+            // Exibir área do jogo
+            if (window.imgDesafio) window.imgDesafio.style.display = 'none';
             if (startGameButton) startGameButton.style.display = 'none';
             if (gameArea) gameArea.style.display = 'block';
-            
-            // Inicia a geração de escudos
+
+            // Iniciar geração de escudos
+            if (balloonSpawnTimer) clearInterval(balloonSpawnTimer);
             balloonSpawnTimer = setInterval(spawnBalloon, BALLOON_SPAWN_INTERVAL);
         }
+        window.initBalloonGame = initBalloonGame;
     }
 
     function spawnBalloon() {
@@ -111,15 +124,19 @@ document.addEventListener('DOMContentLoaded', function() {
             balloonGameFeedbackEl.className = 'feedback success';
         }
 
-        // Esconde a seção do jogo e mostra os detalhes da festa
-        if(balloonGameSection) balloonGameSection.classList.add('hidden'); // Ou style.display = 'none'
+        // Esconde e remove a área do jogo e o container do desafio com efeito
+        if (gameArea) gameArea.style.display = 'none';
+        if (balloonGameSection) {
+            balloonGameSection.classList.add('fade-out');
+            setTimeout(() => {
+                if (balloonGameSection.parentNode) {
+                    balloonGameSection.parentNode.removeChild(balloonGameSection);
+                }
+            }, 700); // Tempo igual ao da animação
+        }
 
         detalhesFesta.classList.remove('hidden');
         detalhesFesta.style.display = 'block'; // Garante visibilidade
-
-        // Os balões continuarão a ser gerados e poderão ser estourados
-        // O balloonSpawnTimer NÃO é limpo aqui
-        // O vídeo NÃO é iniciado aqui, pois agora ele depende do clique no presente.
     }
 
     // --- Lógica para o Presente/Vídeo ---
@@ -127,6 +144,7 @@ document.addEventListener('DOMContentLoaded', function() {
         imagemDoPresente.addEventListener('click', () => {
             // Esconde a área do presente (imagem e texto de incentivo)
             areaPresente.style.display = 'none';
+            if (playIcon) playIcon.style.display = 'none';
             
             // 1. Torna o contêiner do vídeo 'displayable' para que a transição CSS possa ocorrer
             videoWrapper.style.display = 'block';
@@ -185,4 +203,18 @@ document.addEventListener('DOMContentLoaded', function() {
             initBalloonGame();
         });
     }
+
+    // Iniciar o jogo ao clicar na imagem desafio
+    if (imgDesafio) {
+        imgDesafio.addEventListener('click', function() {
+            if (typeof initBalloonGame === 'function') {
+                initBalloonGame();
+            }
+            // Esconde a imagem do desafio após iniciar o jogo
+            imgDesafio.style.display = 'none';
+        });
+    }
+
+    // Garantir referência global para imgDesafio
+    window.imgDesafio = imgDesafio;
 });
